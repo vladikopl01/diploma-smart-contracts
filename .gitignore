@@ -1,0 +1,13 @@
+node_modules
+
+# Enviroment variables
+.env
+
+# Tests
+cache
+coverage
+coverage.json
+
+# Typings
+artifacts
+typechain
