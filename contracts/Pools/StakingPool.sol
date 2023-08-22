@@ -9,10 +9,11 @@ import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract StakingPool is IStakingPool {
     ICharityToken public immutable charityToken;
-    uint256 public immutable epochTime;
+    uint256 public immutable epochTerm;
 
     mapping(address => StakePosition) public stakes;
     uint256 public minAmountToStake;
+    uint256 public maxAmountToStake;
     uint256 public totalStaked;
 
     constructor(address _charityToken, uint256 _minAmountToStake) {
@@ -55,10 +56,6 @@ contract StakingPool is IStakingPool {
 
     function calculateReward() external view returns (uint256) {
         return _calculateReward(stakes[msg.sender]);
-    }
-
-    function calculateReward(StakePosition calldata _position) external pure returns (uint256) {
-        return _calculateReward(_position);
     }
 
     function _claimReward() internal {}

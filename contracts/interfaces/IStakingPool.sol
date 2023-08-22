@@ -25,7 +25,6 @@ interface IStakingPool {
     function claimReward() external;
 
     function calculateReward() external view returns (uint256);
-    function calculateReward(StakePosition calldata _position) external pure returns (uint256);
     function stakes(address _account) external view returns (uint256, uint256, uint256, uint256, uint256);
     function totalStaked() external view returns (uint256);
 }
