@@ -11,18 +11,20 @@ interface IStakingPool {
         uint256 totalReward;
     }
 
-    event Staked(address indexed _account, uint256 _amount);
-    event Unstaked(address indexed _account, uint256 _amount);
-    event RewardClaimed(address indexed _account, uint256 _amount);
-
     error InvalidAmount();
     error NoStakePosition();
     error NothingToClaim();
     error StakeNotEnded();
 
+    event Staked(address indexed _account, uint256 _amount);
+    event Unstaked(address indexed _account, uint256 _amount);
+    event Claimed(address indexed _account, uint256 _amount);
+    event Compounded(address indexed _account, uint256 _amount);
+
     function stake(uint256 _amount) external;
     function unstake(uint256 _amount) external;
-    function claimReward() external;
+    function claim() external;
+    function compound() external;
 
     function calculateReward() external view returns (uint256);
     function stakes(address _account) external view returns (uint256, uint256, uint256, uint256, uint256);
