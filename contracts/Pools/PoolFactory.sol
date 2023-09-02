@@ -15,6 +15,11 @@ contract PoolFactory is IPoolFactory, Operatable {
     mapping(uint256 => address) public poolById;
     uint256 public poolsCount;
 
+    modifier onlyCreator() {
+        if (!creators[msg.sender]) revert NotCreator();
+        _;
+    }
+
     constructor(address _charityToken) {
         charityToken = _charityToken;
     }
@@ -26,7 +31,7 @@ contract PoolFactory is IPoolFactory, Operatable {
         uint256 _endTimestamp,
         uint256 _minDepositAmount,
         uint256 _rewardRatio
-    ) external returns (address) {
+    ) external onlyCreator returns (address) {
         if (_depositReceiver == address(0)) revert AddressIsZero();
         if (_inputToken == address(0)) revert AddressIsZero();
         if (_startTimestamp < block.timestamp) revert InvalidTimestamp();
