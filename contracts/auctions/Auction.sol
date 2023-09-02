@@ -89,7 +89,7 @@ contract Auction is ERC721Holder, IAuction {
         bids[msg.sender] += _amount;
         charityMultiplier = (bids[msg.sender] * 1000) / highestBid;
         bidsCount++;
-        bidHistory[bidsCount] = Bid(msg.sender, _amount);
+        bidHistory[bidsCount] = Bid(msg.sender, _amount, block.timestamp);
         highestBid = bids[msg.sender];
         highestBidder = msg.sender;
 

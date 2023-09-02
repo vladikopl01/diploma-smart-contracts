@@ -9,6 +9,7 @@ interface IAuction {
     struct Bid {
         address bidder;
         uint256 amount;
+        uint256 timestamp;
     }
 
     event BidPlaced(address indexed _bidder, uint256 _amount);
@@ -64,7 +65,7 @@ interface IAuction {
 
     function bids(address _bidder) external view returns (uint256);
 
-    function bidHistory(uint256 _index) external view returns (address, uint256);
+    function bidHistory(uint256 _index) external view returns (address, uint256, uint256);
 
     function bidsCount() external view returns (uint256);
 
