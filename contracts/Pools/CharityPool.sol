@@ -102,7 +102,7 @@ contract CharityPool is ICharityPool {
     function claimRewards() external ended {
         if (deposits[msg.sender] == 0) revert NothingToReward();
 
-        uint256 _amount = deposits[msg.sender] * rewardRatio / 100;
+        uint256 _amount = (deposits[msg.sender] * rewardRatio) / 100;
         deposits[msg.sender] = 0;
         rewardToken.mint(msg.sender, _amount);
 

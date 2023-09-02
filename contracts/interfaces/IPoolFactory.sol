@@ -18,10 +18,14 @@ interface IPoolFactory {
         uint256 _minDepositAmount,
         uint256 _rewardRatio
     ) external returns (address);
+
     function setCreator(address _account, bool _status) external;
 
     function charityToken() external view returns (address);
+
     function creators(address _account) external view returns (bool);
+
     function poolById(uint256 _id) external view returns (address);
+
     function poolsCount() external view returns (uint256);
 }

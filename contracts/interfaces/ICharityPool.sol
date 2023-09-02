@@ -35,21 +35,36 @@ interface ICharityPool {
         uint256 _minDepositAmount,
         uint256 _rewardRatio
     ) external;
+
     function deposit(uint256 _amount) external;
+
     function withdraw(uint256 _amount) external;
+
     function claimDeposits() external;
+
     function claimRewards() external;
 
     function factory() external view returns (address);
+
     function creator() external view returns (address);
+
     function depositReceiver() external view returns (address);
+
     function inputToken() external view returns (IERC20);
+
     function rewardToken() external view returns (ICharityToken);
+
     function startTimestamp() external view returns (uint256);
+
     function endTimestamp() external view returns (uint256);
+
     function minDepositAmount() external view returns (uint256);
+
     function rewardRatio() external view returns (uint256);
+
     function deposits(address _account) external view returns (uint256);
+
     function totalDeposits() external view returns (uint256);
+
     function isClaimed() external view returns (bool);
 }
