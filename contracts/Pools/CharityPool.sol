@@ -81,6 +81,10 @@ contract CharityPool is ICharityPool {
         if (_amount < minDepositAmount) revert AmountIsNotEnough();
         if (_amount == 0) revert AmountIsZero();
 
+        if (_amount + totalDeposits > amountToRaise) {
+            _amount = amountToRaise - totalDeposits;
+        }
+
         inputToken.transferFrom(msg.sender, address(this), _amount);
 
         deposits[msg.sender] += _amount;
