@@ -30,13 +30,18 @@ contract PoolFactory is IPoolFactory, Operatable {
         uint256 _startTimestamp,
         uint256 _endTimestamp,
         uint256 _minDepositAmount,
-        uint256 _rewardRatio
+        uint256 _rewardRatio,
+        string calldata _title,
+        string calldata _description
     ) external onlyCreator returns (address) {
         if (_depositReceiver == address(0)) revert AddressIsZero();
         if (_inputToken == address(0)) revert AddressIsZero();
         if (_startTimestamp < block.timestamp) revert InvalidTimestamp();
         if (_endTimestamp <= _startTimestamp) revert InvalidTimestamp();
         if (_rewardRatio == 0) revert InvalidRewardRatio();
+
+        if (bytes(_title).length == 0) revert EmptyTitle();
+        if (bytes(_description).length == 0) revert EmptyDescription();
 
         ++poolsCount;
         bytes memory bytecode = type(CharityPool).creationCode;
@@ -51,7 +56,9 @@ contract PoolFactory is IPoolFactory, Operatable {
             _startTimestamp,
             _endTimestamp,
             _minDepositAmount,
-            _rewardRatio
+            _rewardRatio,
+            _title,
+            _description
         );
 
         poolById[poolsCount] = pool;

@@ -27,7 +27,7 @@ contract Auction is ERC721Holder, IAuction {
     uint256 public bidsCount;
     uint256 public highestBid;
     address public highestBidder;
-    bool public canceled;
+    bool public cancelled;
     bool public bidsClaimed;
     bool public rewardClaimed;
     uint256 public charityMultiplier;
@@ -53,7 +53,7 @@ contract Auction is ERC721Holder, IAuction {
     }
 
     modifier notCanceled() {
-        if (canceled) revert AuctionCanceled();
+        if (cancelled) revert AuctionCancelled();
         _;
     }
 
@@ -134,10 +134,10 @@ contract Auction is ERC721Holder, IAuction {
     }
 
     function cancel() external onlyCreator notEnded {
-        canceled = true;
+        cancelled = true;
         rewardToken.safeTransferFrom(address(this), creator, rewardTokenId);
 
-        emit Canceled();
+        emit Cancelled();
     }
 
     function timeLeft() external view returns (uint256) {

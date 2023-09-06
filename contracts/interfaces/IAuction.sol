@@ -16,11 +16,11 @@ interface IAuction {
     event BidWithdrawn(address indexed _bidder, uint256 _amount);
     event RewardClaimed(address indexed _bidder, uint256 indexed _charityMultiplier);
     event BidsClaimed(address indexed _creator, uint256 _amount);
-    event Canceled();
+    event Cancelled();
 
     error AlreadyEnded();
     error NotEnded();
-    error AuctionCanceled();
+    error AuctionCancelled();
     error CreatorNotAllowed();
     error OnlyCreatorAllowed();
     error HighestBidderNotAllowed();
@@ -73,7 +73,7 @@ interface IAuction {
 
     function highestBidder() external view returns (address);
 
-    function canceled() external view returns (bool);
+    function cancelled() external view returns (bool);
 
     function bidsClaimed() external view returns (bool);
 

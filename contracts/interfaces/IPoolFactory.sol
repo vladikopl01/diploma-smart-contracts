@@ -6,9 +6,12 @@ interface IPoolFactory {
     event CreatorStatusChanged(address indexed _account, bool _status);
     event PoolCreated(address indexed _pool, address indexed _account);
 
+    error NotCreator();
     error AddressIsZero();
     error InvalidTimestamp();
     error InvalidRewardRatio();
+    error EmptyTitle();
+    error EmptyDescription();
 
     function createPool(
         address _depositReceiver,
@@ -16,7 +19,9 @@ interface IPoolFactory {
         uint256 _startTimestamp,
         uint256 _endTimestamp,
         uint256 _minDepositAmount,
-        uint256 _rewardRatio
+        uint256 _rewardRatio,
+        string calldata _title,
+        string calldata _description
     ) external returns (address);
 
     function setCreator(address _account, bool _status) external;

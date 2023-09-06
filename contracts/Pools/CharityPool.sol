@@ -18,6 +18,9 @@ contract CharityPool is ICharityPool {
     uint256 public minDepositAmount;
     uint256 public rewardRatio;
 
+    string public title;
+    string public description;
+
     mapping(address => uint256) public deposits;
     uint256 public totalDeposits;
     bool public isClaimed;
@@ -49,7 +52,9 @@ contract CharityPool is ICharityPool {
         uint256 _startTimestamp,
         uint256 _endTimestamp,
         uint256 _minDepositAmount,
-        uint256 _rewardRatio
+        uint256 _rewardRatio,
+        string calldata _title,
+        string calldata _description
     ) external {
         if (msg.sender != factory) revert AlreadyInitialized();
 
@@ -61,6 +66,9 @@ contract CharityPool is ICharityPool {
         endTimestamp = _endTimestamp;
         minDepositAmount = _minDepositAmount;
         rewardRatio = _rewardRatio;
+
+        title = _title;
+        description = _description;
     }
 
     function deposit(uint256 _amount) external started notEnded {
