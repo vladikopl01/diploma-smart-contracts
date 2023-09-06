@@ -20,6 +20,7 @@ contract CharityPool is ICharityPool {
 
     string public title;
     string public description;
+    string public coverImageUrl;
 
     mapping(address => uint256) public deposits;
     uint256 public totalDeposits;
@@ -54,7 +55,8 @@ contract CharityPool is ICharityPool {
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,
-        string calldata _description
+        string calldata _description,
+        string calldata _coverImageUrl
     ) external {
         if (msg.sender != factory) revert AlreadyInitialized();
 
@@ -69,6 +71,7 @@ contract CharityPool is ICharityPool {
 
         title = _title;
         description = _description;
+        coverImageUrl = _coverImageUrl;
     }
 
     function deposit(uint256 _amount) external started notEnded {

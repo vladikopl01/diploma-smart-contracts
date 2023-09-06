@@ -35,7 +35,8 @@ interface ICharityPool {
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,
-        string calldata _description
+        string calldata _description,
+        string calldata _coverImageUrl
     ) external;
 
     function deposit(uint256 _amount) external;
@@ -67,6 +68,8 @@ interface ICharityPool {
     function title() external view returns (string memory);
 
     function description() external view returns (string memory);
+
+    function coverImageUrl() external view returns (string memory);
 
     function deposits(address _account) external view returns (uint256);
 

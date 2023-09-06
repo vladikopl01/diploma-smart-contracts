@@ -12,6 +12,7 @@ interface IPoolFactory {
     error InvalidRewardRatio();
     error EmptyTitle();
     error EmptyDescription();
+    error EmptyCoverImageUrl();
 
     function createPool(
         address _depositReceiver,
@@ -21,7 +22,8 @@ interface IPoolFactory {
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,
-        string calldata _description
+        string calldata _description,
+        string calldata _coverImageUrl
     ) external returns (address);
 
     function setCreator(address _account, bool _status) external;
