@@ -8,6 +8,7 @@ interface IPoolFactory {
 
     error NotCreator();
     error AddressIsZero();
+    error InvalidAmountToRaise();
     error InvalidTimestamp();
     error InvalidRewardRatio();
     error EmptyTitle();
@@ -19,6 +20,7 @@ interface IPoolFactory {
         address _inputToken,
         uint256 _startTimestamp,
         uint256 _endTimestamp,
+        uint256 _amountToRaise,
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,

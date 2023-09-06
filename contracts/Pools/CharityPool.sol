@@ -15,6 +15,7 @@ contract CharityPool is ICharityPool {
     ICharityToken public rewardToken;
     uint256 public startTimestamp;
     uint256 public endTimestamp;
+    uint256 public amountToRaise;
     uint256 public minDepositAmount;
     uint256 public rewardRatio;
 
@@ -52,6 +53,7 @@ contract CharityPool is ICharityPool {
         address _rewardToken,
         uint256 _startTimestamp,
         uint256 _endTimestamp,
+        uint256 _amountToRaise,
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,
@@ -66,6 +68,7 @@ contract CharityPool is ICharityPool {
         rewardToken = ICharityToken(_rewardToken);
         startTimestamp = _startTimestamp;
         endTimestamp = _endTimestamp;
+        amountToRaise = _amountToRaise;
         minDepositAmount = _minDepositAmount;
         rewardRatio = _rewardRatio;
 

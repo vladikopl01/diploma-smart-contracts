@@ -29,6 +29,7 @@ contract PoolFactory is IPoolFactory, Operatable {
         address _inputToken,
         uint256 _startTimestamp,
         uint256 _endTimestamp,
+        uint256 _amountToRaise,
         uint256 _minDepositAmount,
         uint256 _rewardRatio,
         string calldata _title,
@@ -37,6 +38,7 @@ contract PoolFactory is IPoolFactory, Operatable {
     ) external onlyCreator returns (address) {
         if (_depositReceiver == address(0)) revert AddressIsZero();
         if (_inputToken == address(0)) revert AddressIsZero();
+        if (_amountToRaise < _minDepositAmount) revert InvalidAmountToRaise();
         if (_startTimestamp < block.timestamp) revert InvalidTimestamp();
         if (_endTimestamp <= _startTimestamp) revert InvalidTimestamp();
         if (_rewardRatio == 0) revert InvalidRewardRatio();
@@ -58,6 +60,7 @@ contract PoolFactory is IPoolFactory, Operatable {
             _startTimestamp,
             _endTimestamp,
             _minDepositAmount,
+            _amountToRaise,
             _rewardRatio,
             _title,
             _description,
@@ -73,5 +76,24 @@ contract PoolFactory is IPoolFactory, Operatable {
     function setCreator(address _account, bool _status) external onlyOperator {
         creators[_account] = _status;
         emit CreatorStatusChanged(_account, _status);
+    }
+
+    function getHighestDepositRatePool() external view returns (uint256) {
+        uint256 leftToRaise = 100;
+        uint256 count = poolsCount;
+        for (uint256 i = 1; i <= count; ) {
+            CharityPool pool = CharityPool(poolById[i]);
+
+            uint256 leftToRaisePercentage = 100 - ((pool.totalDeposits() * 100) / pool.amountToRaise());
+            if (leftToRaisePercentage < leftToRaise) {
+                leftToRaise = leftToRaisePercentage;
+            }
+
+            unchecked {
+                ++i;
+            }
+        }
+
+        return leftToRaise;
     }
 }
