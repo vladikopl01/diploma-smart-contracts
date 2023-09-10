@@ -13,6 +13,8 @@ contract AuctionFactory is IAuctionFactory, Operatable {
     mapping(address => bool) public creators;
     mapping(address => bool) public allowedDepositTokens;
     mapping(address => bool) public allowedRewardTokens;
+    address[] public allowedDepositTokensList;
+    address[] public allowedRewardTokensList;
 
     mapping(uint256 => address) public auctionById;
     uint256 public auctionsCount;
@@ -76,11 +78,43 @@ contract AuctionFactory is IAuctionFactory, Operatable {
 
     function setAllowedDepositToken(address _token, bool _status) external onlyOperator {
         allowedDepositTokens[_token] = _status;
+
+        if (_status) {
+            allowedDepositTokensList.push(_token);
+        } else {
+            _removeFromArray(allowedDepositTokensList, _token);
+        }
+
         emit DepositTokenStatusChanged(_token, _status);
     }
 
     function setAllowedRewardToken(address _token, bool _status) external onlyOperator {
         allowedRewardTokens[_token] = _status;
+
+        if (_status) {
+            allowedRewardTokensList.push(_token);
+        } else {
+            _removeFromArray(allowedRewardTokensList, _token);
+        }
+
         emit RewardTokenStatusChanged(_token, _status);
+    }
+
+    function getAllowedDepositTokensList() external view returns (address[] memory) {
+        return allowedDepositTokensList;
+    }
+
+    function getAllowedRewardTokensList() external view returns (address[] memory) {
+        return allowedRewardTokensList;
+    }
+
+    function _removeFromArray(address[] storage _array, address _item) internal {
+        for (uint256 i = 0; i < _array.length; i++) {
+            if (_array[i] == _item) {
+                _array[i] = _array[_array.length - 1];
+                _array.pop();
+                break;
+            }
+        }
     }
 }

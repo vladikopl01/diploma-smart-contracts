@@ -41,7 +41,15 @@ interface IAuctionFactory {
 
     function allowedRewardTokens(address) external view returns (bool);
 
+    function allowedDepositTokensList(uint256) external view returns (address);
+
+    function allowedRewardTokensList(uint256) external view returns (address);
+
     function auctionById(uint256) external view returns (address);
 
     function auctionsCount() external view returns (uint256);
+
+    function getAllowedDepositTokensList() external view returns (address[] memory);
+
+    function getAllowedRewardTokensList() external view returns (address[] memory);
 }
