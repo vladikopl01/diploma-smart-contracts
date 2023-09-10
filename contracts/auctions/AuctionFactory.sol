@@ -33,6 +33,7 @@ contract AuctionFactory is IAuctionFactory, Operatable {
         uint256 _rewardTokenId,
         uint256 _endTime,
         uint256 _minBidAmount,
+        uint256 _buyPrice,
         string calldata _title,
         string calldata _description
     ) external onlyCreator returns (address) {
@@ -40,6 +41,7 @@ contract AuctionFactory is IAuctionFactory, Operatable {
         if (_rewardToken == address(0)) revert AddressIsZero();
         if (_endTime <= block.timestamp) revert InvalidTimestamp();
         if (_minBidAmount == 0) revert InvalidMinBidAmount();
+        if (_buyPrice == 0 || _buyPrice < _minBidAmount) revert InvalidBuyPrice();
 
         if (bytes(_title).length == 0) revert EmptyTitle();
         if (bytes(_description).length == 0) revert EmptyDescription();

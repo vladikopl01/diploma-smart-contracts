@@ -78,7 +78,7 @@ contract CharityPool is ICharityPool {
     }
 
     function deposit(uint256 _amount) external started notEnded {
-        if (_amount < minDepositAmount) revert AmountIsNotEnough();
+        if (_amount < minDepositAmount && _amount + totalDeposits < amountToRaise) revert AmountIsNotEnough();
         if (_amount == 0) revert AmountIsZero();
 
         if (_amount + totalDeposits > amountToRaise) {

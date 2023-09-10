@@ -19,6 +19,7 @@ contract Auction is ERC721Holder, IAuction {
     uint256 public startTime;
     uint256 public endTime;
     uint256 public minBidAmount;
+    uint256 public buyPrice;
 
     string public title;
     string public description;
@@ -70,6 +71,7 @@ contract Auction is ERC721Holder, IAuction {
         uint256 _rewardTokenId,
         uint256 _endTime,
         uint256 _minBidAmount,
+        uint256 _buyPrice,
         string calldata _title,
         string calldata _description
     ) external {
@@ -83,6 +85,7 @@ contract Auction is ERC721Holder, IAuction {
         startTime = block.timestamp;
         endTime = _endTime;
         minBidAmount = _minBidAmount;
+        buyPrice = _buyPrice;
         title = _title;
         description = _description;
 
@@ -91,7 +94,14 @@ contract Auction is ERC721Holder, IAuction {
 
     function bid(uint256 _amount) external onlyNotCreator notEnded notCanceled {
         if (_amount < minBidAmount) revert BidTooLow();
-        if (bids[msg.sender] + _amount <= highestBid) revert BidTooLow();
+
+        uint256 totalBid = bids[msg.sender] + _amount;
+        if (totalBid <= highestBid) revert BidTooLow();
+        if (totalBid > buyPrice) {
+            _amount = buyPrice - bids[msg.sender];
+            endTime = 0;
+            return;
+        }
 
         bids[msg.sender] += _amount;
         charityMultiplier = (bids[msg.sender] * 1000) / highestBid;

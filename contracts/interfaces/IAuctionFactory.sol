@@ -12,6 +12,7 @@ interface IAuctionFactory {
     error AddressIsZero();
     error InvalidTimestamp();
     error InvalidMinBidAmount();
+    error InvalidBuyPrice();
     error EmptyTitle();
     error EmptyDescription();
 
@@ -21,6 +22,7 @@ interface IAuctionFactory {
         uint256 _rewardTokenId,
         uint256 _endTime,
         uint256 _minBidAmount,
+        uint256 _buyPrice,
         string calldata _title,
         string calldata _description
     ) external returns (address);

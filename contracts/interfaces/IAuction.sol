@@ -40,6 +40,7 @@ interface IAuction {
         uint256 _rewardTokenId,
         uint256 _endTime,
         uint256 _minBidAmount,
+        uint256 _buyPrice,
         string calldata _title,
         string calldata _description
     ) external;
