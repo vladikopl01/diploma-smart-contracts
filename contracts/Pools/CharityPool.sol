@@ -8,7 +8,7 @@ import {ICharityPool} from "../interfaces/ICharityPool.sol";
 import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract CharityPool is ICharityPool {
-    address public factory;
+    address public immutable factory;
     address public creator;
     address public depositReceiver;
     IERC20 public inputToken;

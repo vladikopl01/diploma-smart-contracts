@@ -10,14 +10,15 @@ import {IAuction} from "../interfaces/IAuction.sol";
 import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract Auction is ERC721Holder, IAuction {
-    ICharityToken public immutable charityToken;
-    address public immutable creator;
-    IERC20 public immutable depositToken;
-    IERC721 public immutable rewardToken;
-    uint256 public immutable rewardTokenId;
-    uint256 public immutable startTime;
-    uint256 public immutable endTime;
-    uint256 public immutable minBidAmount;
+    address public immutable factory;
+    ICharityToken public charityToken;
+    address public creator;
+    IERC20 public depositToken;
+    IERC721 public rewardToken;
+    uint256 public rewardTokenId;
+    uint256 public startTime;
+    uint256 public endTime;
+    uint256 public minBidAmount;
 
     string public title;
     string public description;
@@ -57,7 +58,11 @@ contract Auction is ERC721Holder, IAuction {
         _;
     }
 
-    constructor(
+    constructor() {
+        factory = msg.sender;
+    }
+
+    function initialize(
         address _charityToken,
         address _creator,
         address _depositToken,
@@ -65,9 +70,11 @@ contract Auction is ERC721Holder, IAuction {
         uint256 _rewardTokenId,
         uint256 _endTime,
         uint256 _minBidAmount,
-        string memory _title,
-        string memory _description
-    ) {
+        string calldata _title,
+        string calldata _description
+    ) external {
+        if (msg.sender != factory) revert AlreadyInitialized();
+
         charityToken = ICharityToken(_charityToken);
         creator = _creator;
         depositToken = IERC20(_depositToken);

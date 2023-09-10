@@ -18,6 +18,7 @@ interface IAuction {
     event BidsClaimed(address indexed _creator, uint256 _amount);
     event Cancelled();
 
+    error AlreadyInitialized();
     error AlreadyEnded();
     error NotEnded();
     error AuctionCancelled();
@@ -30,6 +31,18 @@ interface IAuction {
     error NothingToClaim();
     error BidsAlreadyClaimed();
     error RewardAlreadyClaimed();
+
+    function initialize(
+        address _charityToken,
+        address _creator,
+        address _depositToken,
+        address _rewardToken,
+        uint256 _rewardTokenId,
+        uint256 _endTime,
+        uint256 _minBidAmount,
+        string calldata _title,
+        string calldata _description
+    ) external;
 
     function bid(uint256 _amount) external;
 
