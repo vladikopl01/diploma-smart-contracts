@@ -9,8 +9,7 @@ import {CharityPool} from "./CharityPool.sol";
 import {Operatable} from "../utilities/Operatable.sol";
 
 contract PoolFactory is IPoolFactory, Operatable {
-    address public immutable charityToken;
-
+    address public charityToken;
     mapping(address => bool) public creators;
     mapping(uint256 => address) public poolById;
     uint256 public poolsCount;

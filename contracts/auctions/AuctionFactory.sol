@@ -9,8 +9,7 @@ import {Auction} from "./Auction.sol";
 import {Operatable} from "../utilities/Operatable.sol";
 
 contract AuctionFactory is IAuctionFactory, Operatable {
-    address public immutable charityToken;
-
+    address public charityToken;
     mapping(address => bool) public creators;
     mapping(address => bool) public allowedDepositTokens;
     mapping(address => bool) public allowedRewardTokens;
@@ -59,6 +58,7 @@ contract AuctionFactory is IAuctionFactory, Operatable {
             _rewardTokenId,
             _endTime,
             _minBidAmount,
+            _buyPrice,
             _title,
             _description
         );

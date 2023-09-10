@@ -73,6 +73,8 @@ interface IAuction {
 
     function minBidAmount() external view returns (uint256);
 
+    function buyPrice() external view returns (uint256);
+
     function title() external view returns (string memory);
 
     function description() external view returns (string memory);

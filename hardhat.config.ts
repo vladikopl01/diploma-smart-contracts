@@ -1,5 +1,5 @@
 import "@nomicfoundation/hardhat-chai-matchers";
-import '@nomicfoundation/hardhat-ethers';
+import "@nomicfoundation/hardhat-ethers";
 import "@nomicfoundation/hardhat-network-helpers";
 import "@nomicfoundation/hardhat-verify";
 import "@nomiclabs/hardhat-solhint";
@@ -10,7 +10,16 @@ import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/types";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.20",
+  solidity: {
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+      viaIR: true,
+    },
+  },
   typechain: {
     outDir: "typechain",
   },

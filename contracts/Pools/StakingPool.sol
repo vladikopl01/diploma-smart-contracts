@@ -6,8 +6,7 @@ import {IStakingPool} from "../interfaces/IStakingPool.sol";
 import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract StakingPool is IStakingPool {
-    ICharityToken public immutable charityToken;
-
+    ICharityToken public charityToken;
     mapping(address => StakePosition) public stakePositions;
     uint256 public minAmountToStake;
     uint256 public maxAmountToStake;

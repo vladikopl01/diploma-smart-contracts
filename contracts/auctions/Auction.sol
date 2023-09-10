@@ -10,7 +10,7 @@ import {IAuction} from "../interfaces/IAuction.sol";
 import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract Auction is ERC721Holder, IAuction {
-    address public immutable factory;
+    address public factory;
     ICharityToken public charityToken;
     address public creator;
     IERC20 public depositToken;
