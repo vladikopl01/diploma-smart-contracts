@@ -4,9 +4,9 @@ pragma solidity ^0.8.20;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-import {Operatable} from "../../utilities/Operatable.sol";
+import {Operatable} from "../utilities/Operatable.sol";
 
-import {ICharityToken} from "../../interfaces/ICharityToken.sol";
+import {ICharityToken} from "../interfaces/ICharityToken.sol";
 
 contract CharityToken is ICharityToken, ERC20, Operatable {
     constructor() ERC20("Charity Token", "CHR") {}
